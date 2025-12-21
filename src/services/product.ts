@@ -3,18 +3,16 @@ import {
   CreateProductRequestDto,
   CreateProductResponseDto,
   CreateProductStaus,
-  GetProductByIdRequestDto,
-  GetProductListDto,
-  GetProductResponseDto,
-  ProjectDto,
+  ProductByIdRequestDto,
+  ProductListResponseDto,
+  ProductResponseDto,
+  UpdateeProductRequestDto,
 } from "../utils/types/product";
 
 class ProductService {
   async create(
     requestData: CreateProductRequestDto
   ): Promise<CreateProductResponseDto> {
-    console.log("Product Service");
-
     const product = await Product.create({
       name: requestData.name,
       basePrice: requestData.basePrice,
@@ -28,9 +26,9 @@ class ProductService {
   }
 
   async getById(
-    requestData: GetProductByIdRequestDto
-  ): Promise<GetProductResponseDto> {
-    const product = await Product.findById(requestData.id);
+    requestParam: ProductByIdRequestDto
+  ): Promise<ProductResponseDto> {
+    const product = await Product.findById(requestParam.id);
 
     return {
       status: CreateProductStaus.SUCESS,
@@ -38,12 +36,43 @@ class ProductService {
     };
   }
 
-  async getAllProduct(): Promise<GetProductListDto> {
+  async getAllProduct(): Promise<ProductListResponseDto> {
     const product = await Product.find();
 
     return {
       status: CreateProductStaus.SUCESS,
       products: product,
+    };
+  }
+
+  async updateProduct(
+    requestParam: ProductByIdRequestDto,
+    requestData: UpdateeProductRequestDto
+  ): Promise<ProductResponseDto> {
+    const product = await Product.findByIdAndUpdate(
+      requestParam.id,
+      {
+        name: requestData.name,
+        basePrice: requestData.basePrice,
+        category: requestData.category,
+      },
+      { new: true }
+    );
+
+    return {
+      status: CreateProductStaus.SUCESS,
+      product: product,
+    };
+  }
+
+  async deleteProduct(
+    requestParam: ProductByIdRequestDto
+  ): Promise<ProductResponseDto> {
+    const product = await Product.findByIdAndDelete(requestParam.id);
+
+    return {
+      status: CreateProductStaus.SUCESS,
+      product: product,
     };
   }
 }

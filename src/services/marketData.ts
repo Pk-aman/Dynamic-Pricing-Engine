@@ -2,34 +2,54 @@ import {
   CreateMarketRequestDto,
   CreateMarketResponseDto,
   CreateMarketStaus,
+  MarketDataDto,
+  MarketDataResponseDto,
+  UpdateMarketRequestDto,
 } from "../utils/types/marketData";
 import MarketData from "../models/marketData.model";
+import { ProductByIdRequestDto } from "../utils/types/product";
 class MarketDataService {
   async create(req: CreateMarketRequestDto): Promise<CreateMarketResponseDto> {
-    console.log("Market Service");
-    try {
-      const marketResponse = await MarketData.create({
-        stock: req.stock,
-        demandScore: req.demandScore,
-        competitorPrices: req.competitorPrices,
-      });
-      if (marketResponse) {
-        return {
-          status: CreateMarketStaus.SUCESS,
-          id: marketResponse._id,
-        };
-      }
-      return {
-        status: CreateMarketStaus.FAILED,
-        id: null,
-      };
-    } catch (error) {
-      console.error("Error: ", error);
-      return {
-        status: CreateMarketStaus.FAILED,
-        id: null,
-      };
-    }
+    const marketResponse = await MarketData.create({
+      productId: req.productId,
+      stock: req.stock,
+      demandScore: req.demandScore,
+      competitorPrices: req.competitorPrices,
+    });
+
+    return {
+      status: CreateMarketStaus.SUCESS,
+      id: marketResponse._id,
+    };
+  }
+
+  async getMarketDataById(
+    req: ProductByIdRequestDto
+  ): Promise<MarketDataResponseDto> {
+    const marketDataResponse = await MarketData.findOne({ productId: req.id });
+
+    return {
+      status: CreateMarketStaus.SUCESS,
+      marketData: marketDataResponse,
+    };
+  }
+
+  async updateMarketDataById(
+    params: ProductByIdRequestDto,
+    body: UpdateMarketRequestDto
+  ): Promise<MarketDataResponseDto> {
+    const marketDataResponse = await MarketData.findOneAndUpdate(
+      {
+        productId: params.id,
+      },
+      body,
+      { new: true }
+    );
+
+    return {
+      status: CreateMarketStaus.SUCESS,
+      marketData: marketDataResponse,
+    };
   }
 }
 

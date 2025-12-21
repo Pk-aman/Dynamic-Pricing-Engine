@@ -25,16 +25,22 @@ export type ProjectDto = {
   category: string;
 };
 
-export type GetProductByIdRequestDto = {
+export type ProductByIdRequestDto = {
   id: String;
 };
 
-export type GetProductResponseDto = {
+export type ProductResponseDto = {
   status: CreateProductStaus;
   product: ProjectDto | null;
 };
 
-export type GetProductListDto = {
+export type ProductListResponseDto = {
   status: CreateProductStaus;
   products: Array<ProjectDto> | null;
+};
+
+export type UpdateeProductRequestDto = {
+  name?: string;
+  basePrice?: number;
+  category?: string;
 };
