@@ -10,6 +10,7 @@ import {
   ProductRequest,
   ProjectDto,
   UpdateeProductRequestDto,
+  ProductResponseError,
 } from "../utils/types/product";
 import { productService } from "../services/product";
 import { marketDataService } from "../services/marketData";
@@ -64,7 +65,10 @@ export const produtController = {
     }
   },
 
-  async getAllProducts(req: Request, res: Response<ProductListResponseDto>) {
+  async getAllProducts(
+    req: Request,
+    res: Response<ProductListResponseDto | ProductResponseError>
+  ) {
     try {
       const products = await productService.getAllProduct();
       if (products) {
@@ -72,43 +76,46 @@ export const produtController = {
       }
       res.json({
         status: CreateProductStaus.FAILED,
-        products: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: CreateProductStaus.FAILED,
-        products: null,
+        message: "Something went wrong",
       });
     }
   },
 
   async getProductsById(
     req: Request<ProductByIdRequestDto>,
-    res: Response<ProductResponseDto>
+    res: Response<ProductResponseDto | ProductResponseError>
   ) {
     try {
-      const body = req.params;
-      const product = await productService.getById(body);
-      if (product) {
-        res.json(product);
+      const id = req.params.id;
+      const product = await productService.getById(id);
+
+      if (!product.product) {
+        return res.status(404).json({
+          status: CreateProductStaus.FAILED,
+          message: "Product not found",
+        });
       }
-      res.json({
-        status: CreateProductStaus.FAILED,
-        product: null,
-      });
+
+      return res.json(product);
+      
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: CreateProductStaus.FAILED,
-        product: null,
+        message: "Something went wrong",
       });
     }
   },
 
   async deleteProduct(
     req: Request<ProductByIdRequestDto>,
-    res: Response<ProductResponseDto>
+    res: Response<ProductResponseDto | ProductResponseError>
   ) {
     try {
       const body = req.params;
@@ -118,20 +125,20 @@ export const produtController = {
       }
       res.json({
         status: CreateProductStaus.FAILED,
-        product: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: CreateProductStaus.FAILED,
-        product: null,
+        message: "Something went wrong",
       });
     }
   },
 
   async updateProductsById(
     req: Request<ProductByIdRequestDto, {}, UpdateeProductRequestDto>,
-    res: Response<ProductResponseDto>
+    res: Response<ProductResponseDto | ProductResponseError>
   ) {
     try {
       const params = req.params;
@@ -142,13 +149,13 @@ export const produtController = {
       }
       res.json({
         status: CreateProductStaus.FAILED,
-        product: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: CreateProductStaus.FAILED,
-        product: null,
+        message: "Something went wrong",
       });
     }
   },

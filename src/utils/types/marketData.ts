@@ -7,7 +7,7 @@ export type CreateMarketRequestDto = {
 
 export type CreateMarketResponseDto = {
   status: string;
-  id: string | null;
+  id: string;
 };
 
 export enum CreateMarketStaus {
@@ -25,12 +25,12 @@ export type MarketDataDto = {
 
 export type MarketDataResponseDto = {
   status: CreateMarketStaus;
-  marketData: MarketDataDto | null;
+  marketData: MarketDataDto;
 };
 
 export type ProductListResponseDto = {
   status: CreateMarketStaus;
-  marketData: Array<MarketDataDto> | null;
+  marketData: Array<MarketDataDto>;
 };
 
 export type UpdateMarketRequestDto = {
@@ -38,4 +38,9 @@ export type UpdateMarketRequestDto = {
   stock?: number;
   demandScore?: number;
   competitorPrices?: number[];
+};
+
+export type MarketResponseError = {
+  status: string;
+  message?: "Something went wrong";
 };

@@ -1,47 +1,22 @@
 import { Request, Response } from "express";
 import {
-  CreateMarketRequestDto,
-  CreateMarketResponseDto,
   CreateMarketStaus,
   MarketDataResponseDto,
+  MarketResponseError,
   UpdateMarketRequestDto,
 } from "../utils/types/marketData";
 import { marketDataService } from "../services/marketData";
 import { ProductByIdRequestDto } from "../utils/types/product";
 
 export const marketDataController = {
-  async create(
-    req: Request<CreateMarketRequestDto>,
-    res: Response<CreateMarketResponseDto>
-  ) {
-    try {
-      const body = req.body;
-      const response = await marketDataService.create(body);
-
-      if (response) {
-        res.json(response);
-      }
-      res.json({
-        status: CreateMarketStaus.FAILED,
-        id: null,
-      });
-    } catch (error) {
-      console.error("Error: ", error);
-      res.json({
-        status: CreateMarketStaus.FAILED,
-        id: null,
-      });
-    }
-  },
 
   async getMarketDataById(
     req: Request<ProductByIdRequestDto>,
-    res: Response<MarketDataResponseDto>
+    res: Response<MarketDataResponseDto | MarketResponseError>
   ) {
-    console.log("product by Id");
     try {
-      const body = req.params;
-      const marketData = await marketDataService.getMarketDataById(body);
+      const id = req.params.id;
+      const marketData = await marketDataService.getMarketDataByProductId(id);
 
       if (marketData) {
         res.json(marketData);
@@ -50,14 +25,13 @@ export const marketDataController = {
       console.error("Error: ", error);
       res.json({
         status: CreateMarketStaus.FAILED,
-        marketData: null,
       });
     }
   },
 
   async updateMarketDataById(
     req: Request<ProductByIdRequestDto, {}, UpdateMarketRequestDto>,
-    res: Response<MarketDataResponseDto>
+    res: Response<MarketDataResponseDto | MarketResponseError>
   ) {
     try {
       const param = req.params;
@@ -74,7 +48,6 @@ export const marketDataController = {
       console.error("Error: ", error);
       res.json({
         status: CreateMarketStaus.FAILED,
-        marketData: null,
       });
     }
   },

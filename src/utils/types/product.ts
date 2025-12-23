@@ -19,28 +19,37 @@ export enum CreateProductStaus {
 export type ProductRequest = CreateProductRequestDto | CreateMarketRequestDto;
 
 export type ProjectDto = {
-  id: String;
+  id: string;
   name: string;
-  basePrice: number;
+  basePrice: number | 0;
   category: string;
 };
 
 export type ProductByIdRequestDto = {
-  id: String;
+  id: string;
 };
 
 export type ProductResponseDto = {
   status: CreateProductStaus;
-  product: ProjectDto | null;
+  product: ProjectDto;
 };
 
 export type ProductListResponseDto = {
   status: CreateProductStaus;
-  products: Array<ProjectDto> | null;
+  products: Array<ProjectDto>;
 };
 
 export type UpdateeProductRequestDto = {
   name?: string;
   basePrice?: number;
   category?: string;
+};
+
+export type ProductResponseError = {
+  status: CreateProductStaus;
+  message: string;
+};
+
+export type ProductByIdsRequestDto = {
+  productIds: string[];
 };

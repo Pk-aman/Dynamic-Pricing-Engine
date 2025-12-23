@@ -2,7 +2,6 @@ import {
   CreateMarketRequestDto,
   CreateMarketResponseDto,
   CreateMarketStaus,
-  MarketDataDto,
   MarketDataResponseDto,
   UpdateMarketRequestDto,
 } from "../utils/types/marketData";
@@ -23,10 +22,10 @@ class MarketDataService {
     };
   }
 
-  async getMarketDataById(
-    req: ProductByIdRequestDto
+  async getMarketDataByProductId(
+    id: string
   ): Promise<MarketDataResponseDto> {
-    const marketDataResponse = await MarketData.findOne({ productId: req.id });
+    const marketDataResponse = await MarketData.findOne({ productId: id });
 
     return {
       status: CreateMarketStaus.SUCESS,

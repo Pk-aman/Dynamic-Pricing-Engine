@@ -26,10 +26,9 @@ class ProductService {
   }
 
   async getById(
-    requestParam: ProductByIdRequestDto
+    id: string
   ): Promise<ProductResponseDto> {
-    const product = await Product.findById(requestParam.id);
-
+    const product = await Product.findById(id);
     return {
       status: CreateProductStaus.SUCESS,
       product: product,

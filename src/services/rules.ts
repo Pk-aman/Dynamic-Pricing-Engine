@@ -7,7 +7,6 @@ import { ProductByIdRequestDto } from "../utils/types/product";
 import {
   CreateRulesRequestDto,
   CreateRulesResponseDto,
-  RulesListResponseDto,
   RulesResponseDto,
   RulesStaus,
   UpdateRulesRequestDto,
@@ -30,14 +29,14 @@ class RulesService {
 
   async getRuleById(req: ProductByIdRequestDto): Promise<RulesResponseDto> {
     const ruleResponse = await Rules.findOne({ productId: req.id });
-
+    console.log("service", ruleResponse);
     return {
       status: RulesStaus.SUCESS,
-      rule: ruleResponse,
+      rules: ruleResponse,
     };
   }
 
-  async getAllRules(): Promise<RulesListResponseDto> {
+  async getAllRules(): Promise<RulesResponseDto> {
     const ruleResponse = await Rules.find();
 
     return {
@@ -60,7 +59,7 @@ class RulesService {
 
     return {
       status: RulesStaus.SUCESS,
-      rule: releResponse,
+      rules: releResponse,
     };
   }
 
@@ -71,7 +70,7 @@ class RulesService {
 
     return {
       status: RulesStaus.SUCESS,
-      rule: ruleResponse,
+      rules: ruleResponse,
     };
   }
 }

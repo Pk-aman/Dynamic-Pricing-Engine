@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   CreateRulesRequestDto,
   CreateRulesResponseDto,
-  RulesListResponseDto,
+  RuleResponseError,
   RulesResponseDto,
   RulesStaus,
 } from "../utils/types/rules";
@@ -12,7 +12,7 @@ import { ProductByIdRequestDto } from "../utils/types/product";
 export const ruleController = {
   async createRule(
     req: Request<CreateRulesRequestDto>,
-    res: Response<CreateRulesResponseDto>
+    res: Response<CreateRulesResponseDto | RuleResponseError>
   ) {
     try {
       const body = req.body;
@@ -25,22 +25,23 @@ export const ruleController = {
       }
       res.json({
         status: RulesStaus.FAILED,
-        id: null,
+        message: "Something went wrong.",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: RulesStaus.FAILED,
-        id: null,
+        message: "Something went wrong",
       });
     }
   },
 
   async getRuleByProductId(
     req: Request<ProductByIdRequestDto>,
-    res: Response<RulesResponseDto>
+    res: Response<RulesResponseDto | RuleResponseError>
   ) {
     try {
+      console.log("controller");
       const param = req.params;
       const ruleResponse = await rulesService.getRuleById(param);
       if (ruleResponse) {
@@ -48,18 +49,21 @@ export const ruleController = {
       }
       res.json({
         status: RulesStaus.FAILED,
-        rule: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: RulesStaus.FAILED,
-        rule: null,
+        message: "Something went wrong",
       });
     }
   },
 
-  async getAllRules(req: Request, res: Response<RulesListResponseDto>) {
+  async getAllRules(
+    req: Request,
+    res: Response<RulesResponseDto | RuleResponseError>
+  ) {
     try {
       const rulesResponse = await rulesService.getAllRules();
       if (rulesResponse) {
@@ -67,20 +71,20 @@ export const ruleController = {
       }
       res.json({
         status: RulesStaus.FAILED,
-        rules: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: RulesStaus.FAILED,
-        rules: null,
+        message: "Something went wrong",
       });
     }
   },
 
   async deleteRuleByProductId(
     req: Request<ProductByIdRequestDto>,
-    res: Response<RulesResponseDto>
+    res: Response<RulesResponseDto | RuleResponseError>
   ) {
     try {
       const param = req.params;
@@ -90,13 +94,13 @@ export const ruleController = {
       }
       res.json({
         status: RulesStaus.FAILED,
-        rule: null,
+        message: "Something went wrong",
       });
     } catch (error) {
       console.error("Error: ", error);
       res.json({
         status: RulesStaus.FAILED,
-        rule: null,
+        message: "Something went wrong",
       });
     }
   },

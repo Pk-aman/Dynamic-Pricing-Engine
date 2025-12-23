@@ -25,16 +25,16 @@ export type RulesDto = {
 
 export type RulesResponseDto = {
   status: RulesStaus;
-  rule: RulesDto | null;
-};
-
-export type RulesListResponseDto = {
-  status: RulesStaus;
-  rules: Array<RulesDto> | null;
+  rules: Array<RulesDto>;
 };
 
 export type UpdateRulesRequestDto = {
   condition?: string;
   action?: string;
   priority?: number;
+};
+
+export type RuleResponseError = {
+  status: RulesStaus;
+  message: string;
 };
