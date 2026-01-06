@@ -1,0 +1,1112 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"CreateRulesResponseDto": {
+				"properties": {
+					"id": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"status"
+				],
+				"type": "object"
+			},
+			"RulesStaus": {
+				"enum": [
+					"Sucess",
+					"failed"
+				],
+				"type": "string"
+			},
+			"RuleResponseError": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RulesStaus"
+					}
+				},
+				"required": [
+					"message",
+					"status"
+				],
+				"type": "object"
+			},
+			"CreateRulesRequestDto": {
+				"properties": {
+					"priority": {
+						"type": "number",
+						"format": "double"
+					},
+					"action": {
+						"type": "string"
+					},
+					"condition": {
+						"type": "string"
+					},
+					"productId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"priority",
+					"action",
+					"condition",
+					"productId"
+				],
+				"type": "object"
+			},
+			"RulesDto": {
+				"properties": {
+					"priority": {
+						"type": "number",
+						"format": "double"
+					},
+					"action": {
+						"type": "string"
+					},
+					"condition": {
+						"type": "string"
+					},
+					"productId": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"priority",
+					"action",
+					"condition",
+					"productId",
+					"id"
+				],
+				"type": "object"
+			},
+			"RulesResponseDto": {
+				"properties": {
+					"rules": {
+						"items": {
+							"$ref": "#/components/schemas/RulesDto"
+						},
+						"type": "array"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RulesStaus"
+					}
+				},
+				"required": [
+					"rules",
+					"status"
+				],
+				"type": "object"
+			},
+			"CreateProductResponseDto": {
+				"properties": {
+					"id": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"status"
+				],
+				"type": "object"
+			},
+			"CreateProductRequestDto": {
+				"properties": {
+					"category": {
+						"type": "string"
+					},
+					"basePrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"category",
+					"basePrice",
+					"name"
+				],
+				"type": "object"
+			},
+			"CreateMarketRequestDto": {
+				"properties": {
+					"competitorPrices": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"demandScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"stock": {
+						"type": "number",
+						"format": "double"
+					},
+					"productId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"competitorPrices",
+					"demandScore",
+					"stock",
+					"productId"
+				],
+				"type": "object"
+			},
+			"ProductRequest": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/CreateProductRequestDto"
+					},
+					{
+						"$ref": "#/components/schemas/CreateMarketRequestDto"
+					}
+				]
+			},
+			"CreateProductStaus": {
+				"enum": [
+					"Sucess",
+					"failed"
+				],
+				"type": "string"
+			},
+			"ProjectDto": {
+				"properties": {
+					"category": {
+						"type": "string"
+					},
+					"basePrice": {
+						"anyOf": [
+							{
+								"type": "number",
+								"format": "double"
+							},
+							{
+								"type": "number",
+								"enum": [
+									0
+								]
+							}
+						]
+					},
+					"name": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"category",
+					"basePrice",
+					"name",
+					"id"
+				],
+				"type": "object"
+			},
+			"ProductListResponseDto": {
+				"properties": {
+					"products": {
+						"items": {
+							"$ref": "#/components/schemas/ProjectDto"
+						},
+						"type": "array"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateProductStaus"
+					}
+				},
+				"required": [
+					"products",
+					"status"
+				],
+				"type": "object"
+			},
+			"ProductResponseDto": {
+				"properties": {
+					"product": {
+						"$ref": "#/components/schemas/ProjectDto"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateProductStaus"
+					}
+				},
+				"required": [
+					"product",
+					"status"
+				],
+				"type": "object"
+			},
+			"UpdateeProductRequestDto": {
+				"properties": {
+					"category": {
+						"type": "string"
+					},
+					"basePrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"type": "object"
+			},
+			"DynamicPriceDto": {
+				"properties": {
+					"appliedRules": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dynamicPrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"basePrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"productId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"appliedRules",
+					"dynamicPrice",
+					"basePrice",
+					"productId"
+				],
+				"type": "object"
+			},
+			"DynamicPriceResponseDto": {
+				"properties": {
+					"price": {
+						"$ref": "#/components/schemas/DynamicPriceDto"
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"price",
+					"status"
+				],
+				"type": "object"
+			},
+			"DynamicPriceResponseError": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"FAILED",
+							"SUCESS"
+						]
+					}
+				},
+				"required": [
+					"message",
+					"status"
+				],
+				"type": "object"
+			},
+			"PriceListDto": {
+				"properties": {
+					"prices": {
+						"items": {
+							"$ref": "#/components/schemas/DynamicPriceDto"
+						},
+						"type": "array"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"FAILED",
+							"SUCESS"
+						]
+					}
+				},
+				"required": [
+					"prices",
+					"status"
+				],
+				"type": "object"
+			},
+			"ProductByIdsRequestDto": {
+				"properties": {
+					"productIds": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"productIds"
+				],
+				"type": "object"
+			},
+			"PriceHistoryDto": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"appliedRules": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"basePrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"calculatedPrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"productId": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"appliedRules",
+					"basePrice",
+					"calculatedPrice",
+					"productId",
+					"id"
+				],
+				"type": "object"
+			},
+			"PriceHistoryResponseDto": {
+				"properties": {
+					"history": {
+						"items": {
+							"$ref": "#/components/schemas/PriceHistoryDto"
+						},
+						"type": "array"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateProductStaus"
+					}
+				},
+				"required": [
+					"history",
+					"status"
+				],
+				"type": "object"
+			},
+			"PriceHistoryResponseError": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Something went wrong."
+						],
+						"nullable": false
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateProductStaus"
+					}
+				},
+				"required": [
+					"status"
+				],
+				"type": "object"
+			},
+			"ClearPriceHistoryResponseDto": {
+				"properties": {
+					"deletedCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateProductStaus"
+					}
+				},
+				"required": [
+					"deletedCount",
+					"status"
+				],
+				"type": "object"
+			},
+			"CreateMarketStaus": {
+				"enum": [
+					"Sucess",
+					"failed"
+				],
+				"type": "string"
+			},
+			"MarketDataDto": {
+				"properties": {
+					"competitorPrices": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"demandScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"stock": {
+						"type": "number",
+						"format": "double"
+					},
+					"productId": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"competitorPrices",
+					"demandScore",
+					"stock",
+					"productId",
+					"id"
+				],
+				"type": "object"
+			},
+			"MarketDataResponseDto": {
+				"properties": {
+					"marketData": {
+						"$ref": "#/components/schemas/MarketDataDto"
+					},
+					"status": {
+						"$ref": "#/components/schemas/CreateMarketStaus"
+					}
+				},
+				"required": [
+					"marketData",
+					"status"
+				],
+				"type": "object"
+			},
+			"MarketResponseError": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Something went wrong"
+						],
+						"nullable": false
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status"
+				],
+				"type": "object"
+			},
+			"UpdateMarketRequestDto": {
+				"properties": {
+					"competitorPrices": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"demandScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"stock": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "Dynamic Pricing Engine API",
+		"version": "1.0.0",
+		"description": "A rule-based dynamic pricing system that calculates product prices using demand, inventory levels, and competitor pricing.",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/rule": {
+			"post": {
+				"operationId": "CreateRule",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/CreateRulesResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/RuleResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Rule"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateRulesRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAllRules",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/RulesResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/RuleResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Rule"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/rule/{id}": {
+			"get": {
+				"operationId": "GetRuleByProductId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/RulesResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/RuleResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Rule"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteRuleByProductId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/RulesResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/RuleResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Rule"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/product": {
+			"post": {
+				"operationId": "CreateProduct",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateProductResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Product"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProductRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAllProducts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProductListResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Product"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/product/{id}": {
+			"get": {
+				"operationId": "GetProductById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProductResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Product"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateProduct",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProductResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Product"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateeProductRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteProduct",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProductResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Product"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pricing/{id}": {
+			"get": {
+				"operationId": "GetDynamicPrice",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/DynamicPriceResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/DynamicPriceResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pricing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pricing": {
+			"post": {
+				"operationId": "SetDynamicPrice",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/PriceListDto"
+										},
+										{
+											"$ref": "#/components/schemas/DynamicPriceResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pricing"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProductByIdsRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/history/{id}": {
+			"get": {
+				"operationId": "GetHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/PriceHistoryResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/PriceHistoryResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"History"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "ClearHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ClearPriceHistoryResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/PriceHistoryResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"History"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/marketdata/{id}": {
+			"get": {
+				"operationId": "GetMarketDataById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/MarketDataResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/MarketResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Marketdata"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateMarketDataById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/MarketDataResponseDto"
+										},
+										{
+											"$ref": "#/components/schemas/MarketResponseError"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Marketdata"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateMarketRequestDto"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080/"
+		}
+	]
+}

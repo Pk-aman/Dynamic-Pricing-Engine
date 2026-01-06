@@ -16,7 +16,7 @@ export enum CreateProductStaus {
   FAILED = "failed",
 }
 
-export type ProductRequest = CreateProductRequestDto | CreateMarketRequestDto;
+export type ProductRequest = CreateProductRequestDto & CreateMarketRequestDto;
 
 export type ProjectDto = {
   id: string;

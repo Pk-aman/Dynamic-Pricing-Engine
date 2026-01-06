@@ -1,0 +1,15 @@
+{
+  "entryFile": "src/server.ts",
+  "controllerPathGlobs": ["src/tsoaControllers/**/*.ts"],
+  "spec": {
+    "specVersion": 3,
+    "outputDirectory": "src/swagger",
+    "outputFileName": "swagger.json",
+
+    "name": "Dynamic Pricing Engine API",
+    "description": "A rule-based dynamic pricing system that calculates product prices using demand, inventory levels, and competitor pricing.",
+    "version": "1.0.0",
+    "schemes": ["http"],
+    "servers": ["localhost:8080"]
+  }
+}

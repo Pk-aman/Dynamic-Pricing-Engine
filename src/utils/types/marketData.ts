@@ -34,7 +34,6 @@ export type ProductListResponseDto = {
 };
 
 export type UpdateMarketRequestDto = {
-  productId: string;
   stock?: number;
   demandScore?: number;
   competitorPrices?: number[];

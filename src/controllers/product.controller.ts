@@ -15,7 +15,7 @@ import {
 import { productService } from "../services/product";
 import { marketDataService } from "../services/marketData";
 
-export const produtController = {
+export const productController = {
   async createProduct(
     req: Request<ProductRequest>,
     res: Response<CreateProductResponseDto>
@@ -103,7 +103,6 @@ export const produtController = {
       }
 
       return res.json(product);
-      
     } catch (error) {
       console.error("Error: ", error);
       res.json({
