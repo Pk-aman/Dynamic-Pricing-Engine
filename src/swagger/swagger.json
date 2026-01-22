@@ -341,42 +341,6 @@
 				],
 				"type": "object"
 			},
-			"PriceListDto": {
-				"properties": {
-					"prices": {
-						"items": {
-							"$ref": "#/components/schemas/DynamicPriceDto"
-						},
-						"type": "array"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"FAILED",
-							"SUCESS"
-						]
-					}
-				},
-				"required": [
-					"prices",
-					"status"
-				],
-				"type": "object"
-			},
-			"ProductByIdsRequestDto": {
-				"properties": {
-					"productIds": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"productIds"
-				],
-				"type": "object"
-			},
 			"PriceHistoryDto": {
 				"properties": {
 					"updatedAt": {
@@ -904,45 +868,6 @@
 						}
 					}
 				]
-			}
-		},
-		"/pricing": {
-			"post": {
-				"operationId": "SetDynamicPrice",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"anyOf": [
-										{
-											"$ref": "#/components/schemas/PriceListDto"
-										},
-										{
-											"$ref": "#/components/schemas/DynamicPriceResponseError"
-										}
-									]
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Pricing"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ProductByIdsRequestDto"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/history/{id}": {
