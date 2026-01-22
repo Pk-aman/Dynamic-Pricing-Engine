@@ -28,7 +28,7 @@ class PricingService {
 
     const basePrice = productData.product ? productData.product.basePrice : 0;
     const appliedRules: string[] = [];
-    let newPrice = 0;
+    let newPrice = basePrice;
     // 4️⃣ Apply rules
     for (const rule of rules) {
       const conditionMet = this.evaluateCondition(
@@ -39,7 +39,7 @@ class PricingService {
       );
 
       if (conditionMet) {
-        newPrice = this.applyAction(basePrice, rule.action);
+        newPrice = this.applyAction(newPrice, rule.action);
         appliedRules.push(`${rule.condition} → ${rule.action}`);
       }
     }

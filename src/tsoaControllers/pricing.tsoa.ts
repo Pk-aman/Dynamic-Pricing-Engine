@@ -17,10 +17,4 @@ export class PricingController extends Controller {
   ): Promise<DynamicPriceResponseDto | DynamicPriceResponseError> {
     return {} as DynamicPriceResponseDto | DynamicPriceResponseError;
   }
-  @Post()
-  public async setDynamicPrice(
-    @Body() req: ProductByIdsRequestDto
-  ): Promise<PriceListDto | DynamicPriceResponseError> {
-    return {} as PriceListDto | DynamicPriceResponseError;
-  }
 }
